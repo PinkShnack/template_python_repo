@@ -5,9 +5,12 @@
 - You should be able to change all info to your project by simply replacing all
 mentions of "template_repo" to "your_project_name", where "your_project_name"
 is the top level module directory name.
+- Notice that you need to change links in this file for them to work. 
 - There are both GitHub and GitLab ci/cd files. Use as needed.
-   - Notice that you need to change links in the README file for them to work. 
 - License should be [changed appropriately](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
+- For github issue template examples, see https://github.com/scipy/scipy/tree/main/.github/ISSUE_TEMPLATE
+
+ 
 - If you think something should be changed/is not right, please make an issue.
 - The versioning layout as described in `template_repo/_version.py` was originally made by Paul Mueller.
 

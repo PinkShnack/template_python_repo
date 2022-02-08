@@ -1,0 +1,42 @@
+
+# You need to have PyPI setup. I would recommed testing on the Test PyPI first.
+# Use GitHub secrets/GitLab variables to securely save your passwords.
+
+# ***DO NOT store passwords in plain text in the repo.***
+
+
+name: Release to PyPI
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ['3.7', '3.8', '3.9']
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine
+        pip install -e .
+    - name: Build and publish
+      env:
+        # you will need to actually have this setup!
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_UPLOAD_TOKEN }}
+      run: |
+        python setup.py sdist bdist_wheel
+        twine upload --skip-existing dist/*
